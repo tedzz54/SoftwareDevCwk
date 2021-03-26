@@ -15,11 +15,11 @@ import java.sql.ResultSet;
  */
 public class UserTable {
     
-    private static Connection connection = CustomerDatabase.getConnection();
+    
     
     public static void insert(int userID,String userName, String userEmail) {
         
-        
+        Connection connection = CustomerDatabase.getConnection();
         
         String sql = "INSERT INTO User (userID,userName, userEmail) VALUES"
                 +"("
@@ -33,6 +33,7 @@ public class UserTable {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             System.out.println("User " + userName + " has been added!");
+            connection.close();
             
         } catch (Exception ex) {
             
@@ -42,22 +43,20 @@ public class UserTable {
         
     }
     
-    public static ResultSet get(int userID) {
+    public static ResultSet get(String userEmail) {
         
-      
+        Connection connection = CustomerDatabase.getConnection();
         
-        String sql = "SELECT * FROM User WHERE userID = " + userID;
-         ResultSet result = null;
+        String sql = "SELECT * FROM User WHERE userEmail = '" + userEmail + "'";
+        ResultSet result = null;
         
         try {
             
             Statement statement = connection.createStatement();
             result = statement.executeQuery(sql);
+            connection.close();
             
-            if(result.next()){
-                System.out.println("Username: " + result.getString("userName"));
-                
-            }
+            
                 
             
             
@@ -75,7 +74,7 @@ public class UserTable {
     
     public static void update(int userID,String userName, String userEmail) {
         
-        
+        Connection connection = CustomerDatabase.getConnection();
         String sql = "UPDATE User SET userName = '" + userName + "', userEmail = '" + userEmail + "' WHERE userID = " + userID;
               
         
@@ -84,6 +83,7 @@ public class UserTable {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             System.out.println("User " + userName + " has been updated!");
+            connection.close();
             
         } catch (Exception ex) {
             
@@ -95,7 +95,7 @@ public class UserTable {
     
     public static void delete(int userID) {
         
-        
+        Connection connection = CustomerDatabase.getConnection();
         String sql = "DELETE FROM User WHERE userID = " + userID;
               
         
@@ -104,6 +104,7 @@ public class UserTable {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
             System.out.println("User with id: " + userID + " has been deleted!");
+            connection.close();
             
         } catch (Exception ex) {
             
