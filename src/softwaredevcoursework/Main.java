@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package softwaredevcoursework;
-import java.sql.ResultSet;
 
 /**
  *
@@ -14,9 +13,11 @@ public class Main {
 
     
     public static void main(String[] args) {
-        Tables.createUser();
+        
+        
+
        
-        UserTable.update(0, "Theodor", "theodoriliasi@outlook.com");
+        
 
         
     }

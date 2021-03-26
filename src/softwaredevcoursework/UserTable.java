@@ -93,5 +93,25 @@ public class UserTable {
         
     }
     
+    public static void delete(int userID) {
+        
+        
+        String sql = "DELETE FROM User WHERE userID = " + userID;
+              
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+            System.out.println("User with id: " + userID + " has been deleted!");
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while deleteing the user " + ex.getMessage());
+            
+        }
+        
+    }
+    
     
 }
