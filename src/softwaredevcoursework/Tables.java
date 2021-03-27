@@ -20,7 +20,8 @@ public class Tables {
                 +"("
                     +"userID INTEGER PRIMARY KEY,"
                     +"userName VARCHAR (50),"
-                    +"userEmail VARCHAR (50)"  
+                    +"userEmail VARCHAR (50),"
+                    +"userPass VARCHAR (50)"
                 +")";
         
         // Using a try-catch to catch if there are any erros when creating the table

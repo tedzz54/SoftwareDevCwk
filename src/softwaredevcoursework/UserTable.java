@@ -17,15 +17,16 @@ public class UserTable {
     
     
     
-    public static void insert(int userID,String userName, String userEmail) {
+    public static void insert(int userID,String userName, String userEmail, String userPass) {
         
         Connection connection = CustomerDatabase.getConnection();
         
-        String sql = "INSERT INTO User (userID,userName, userEmail) VALUES"
+        String sql = "INSERT INTO User (userID,userName, userEmail, userPass) VALUES"
                 +"("
                     +"'" + userID + "',"
                     +"'" + userName + "',"
-                    +"'" + userEmail + "'"
+                    +"'" + userEmail + "',"
+                    +"'" + userPass + "'"
                 +")";
         
         try {
