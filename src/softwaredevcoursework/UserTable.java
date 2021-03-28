@@ -73,6 +73,35 @@ public class UserTable {
         
     }
     
+    public static ResultSet getPass(String userPass) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT * FROM User WHERE userPass = '" + userPass + "'";
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+        
+    }
+    
     public static void update(int userID,String userName, String userEmail) {
         
         Connection connection = CustomerDatabase.getConnection();

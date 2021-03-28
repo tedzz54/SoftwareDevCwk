@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package softwaredevcoursework;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.util.Base64;
 
 /**
  *
@@ -27,46 +30,154 @@ public class SignIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        createAccount1 = new javax.swing.JButton();
+        uEmail = new javax.swing.JTextField();
+        signIn = new javax.swing.JButton();
+        uPass = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Create Account");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createAccount1.setText("Create Account");
+        createAccount1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createAccount1ActionPerformed(evt);
             }
         });
+
+        signIn.setFont(new java.awt.Font("Segoe Print", 0, 36)); // NOI18N
+        signIn.setText(">");
+        signIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("E-mail");
+
+        jLabel2.setText("Password");
+
+        jLabel4.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
+        jLabel4.setText("Sign In");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 100, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(uPass, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(uEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(100, 100, 100))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(156, 156, 156))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(jButton1)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(createAccount1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(72, 72, 72))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(uEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(uPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(createAccount1)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccount1ActionPerformed
         createAccount CreateAccount = new createAccount();
         CreateAccount.setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createAccount1ActionPerformed
+
+    private void signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInActionPerformed
+
+        String userEmail = uEmail.getText();
+        String userPass = uPass.getText();
+        
+        String encryptedString = getEncodedString(userPass);
+        userPass = encryptedString;
+
+        ResultSet userResultSet = UserTable.get(userEmail);
+        ResultSet userResultSet1 = UserTable.getPass(userPass);
+
+        
+
+        try {
+            
+            
+
+            String emailRegex = "^(.+)@(.+)$";
+
+
+
+            if (userEmail.trim().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter your email!");
+
+            }else if (!userEmail.matches(emailRegex)){
+                JOptionPane.showMessageDialog(this,"Email is not in valid format!");
+
+            } else if (!userResultSet.next()){
+                JOptionPane.showMessageDialog(this,"No account with this email has been found!");
+                
+            } else if (userPass.trim().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter your password!");
+                
+                
+            } else if (!userResultSet1.next()){
+                JOptionPane.showMessageDialog(this,"Incorrect password!");    
+
+            } else {
+//                UserTable.insert(0, userName, userEmail,encryptedString);
+//                JOptionPane.showMessageDialog(this,"User successfully registered!");
+//                TimeUnit.SECONDS.sleep(1);
+                JOptionPane.showMessageDialog(this,"Signed in successfully!");  
+                MainScreen mainscreen = new MainScreen();
+                mainscreen.setVisible(true);
+                this.setVisible(false);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_signInActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    private static String getEncodedString(String userPassEncrypted){
+        return Base64.getEncoder().encodeToString(userPassEncrypted.getBytes());
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -97,9 +208,17 @@ public class SignIn extends javax.swing.JFrame {
                 new SignIn().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton createAccount1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton signIn;
+    private javax.swing.JTextField uEmail;
+    private javax.swing.JPasswordField uPass;
     // End of variables declaration//GEN-END:variables
 }
