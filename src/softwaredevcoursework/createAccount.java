@@ -5,6 +5,7 @@
  */
 package softwaredevcoursework;
 import java.sql.ResultSet;
+import java.util.Base64;
 import javax.swing.JOptionPane;
 import java.util.concurrent.TimeUnit;
 
@@ -83,7 +84,7 @@ public class createAccount extends javax.swing.JFrame {
           
           ResultSet userResultSet = UserTable.get(userEmail);
           
-          
+          String encryptedString = getEncodedString(userPass);
           
          
           
@@ -104,7 +105,7 @@ public class createAccount extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"An account is already registered with this email");
                 
             } else {
-                UserTable.insert(1, userName, userEmail,userPass);
+                UserTable.insert(0, userName, userEmail,encryptedString);
                 JOptionPane.showMessageDialog(this,"User successfully registered!");
                 TimeUnit.SECONDS.sleep(2);
                 SignIn signin = new SignIn();
@@ -122,8 +123,13 @@ public class createAccount extends javax.swing.JFrame {
 
  
  
-    
+    private static String getEncodedString(String userPassEncrypted){
+        return Base64.getEncoder().encodeToString(userPassEncrypted.getBytes());
+    }
     public static void main(String args[]) {
+        
+       
+        
         
        
 
