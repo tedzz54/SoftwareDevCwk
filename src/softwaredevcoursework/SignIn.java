@@ -164,7 +164,7 @@ public class SignIn extends javax.swing.JFrame {
                 long time = date.getTime();
                 Timestamp ts = new Timestamp(time);
                 
-                userActivityTable.insert(0,userEmail, ts, null);
+                userActivityTable.insert(userEmail, ts, null);
                 MainScreen mainscreen = new MainScreen(userEmail);
                 mainscreen.setVisible(true);
                 this.setVisible(false);

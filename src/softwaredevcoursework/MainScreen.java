@@ -5,9 +5,15 @@
  */
 package softwaredevcoursework;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +26,7 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
+    
     }
     
     public MainScreen(String userEmail){
@@ -27,6 +34,8 @@ public class MainScreen extends javax.swing.JFrame {
         userEmailMain.setText(userEmail);
         
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,8 +46,13 @@ public class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
         signOut = new javax.swing.JButton();
         userEmailMain = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        updateTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,20 +64,48 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         userEmailMain.setText("jLabel1");
+        userEmailMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userEmailMainMouseClicked(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "E-mail", "Login Time", "Logout Time"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        updateTable.setText("Update");
+        updateTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(299, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(702, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(signOut)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(userEmailMain)
-                        .addGap(40, 40, 40))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(updateTable)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(signOut)
+                        .addGap(22, 22, 22))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 239, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,8 +113,11 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(userEmailMain)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signOut)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signOut)
+                    .addComponent(updateTable))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -94,6 +139,55 @@ public class MainScreen extends javax.swing.JFrame {
         signin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_signOutActionPerformed
+
+    private void userEmailMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userEmailMainMouseClicked
+        
+    }//GEN-LAST:event_userEmailMainMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
+        String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
+        Connection connection = null;
+        
+        
+        try {
+            
+            Driver driverSQLite = new org.sqlite.JDBC();
+            DriverManager.registerDriver(driverSQLite);
+            System.out.println("SQLite Driver loaded up successfuly!");
+            Connection con = DriverManager.getConnection(urlSQLite);
+            System.out.println("Connected to the database!");
+            
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM userActivity";
+            ResultSet resultSet2 = st.executeQuery(sql);
+            
+            
+            while(resultSet2.next()){
+                String userEmail = resultSet2.getString("userEmail");
+
+                String loginTime = resultSet2.getString("loginTime");
+                String logoutTime = resultSet2.getString("logoutTime");
+                
+                String DBdata[] = {userEmail,loginTime,logoutTime};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                
+                tblModel.addRow(DBdata);
+                
+                
+                
+            }
+            
+            connection.close();
+            
+        } catch (Exception ex){
+            System.out.println("Error " + ex.getMessage());
+        }
+    }//GEN-LAST:event_updateTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,10 +222,17 @@ public class MainScreen extends javax.swing.JFrame {
                 new MainScreen().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton signOut;
+    private javax.swing.JButton updateTable;
     private javax.swing.JLabel userEmailMain;
     // End of variables declaration//GEN-END:variables
 }

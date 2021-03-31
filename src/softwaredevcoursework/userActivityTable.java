@@ -16,13 +16,12 @@ import java.util.Date;
  */
 public class userActivityTable {
     
-    public static void insert(int userID,String userEmail, Timestamp loginTime, Timestamp logoutTime) {
+    public static void insert(String userEmail, Timestamp loginTime, Timestamp logoutTime) {
         
         Connection connection = CustomerDatabase.getConnection();
         
-        String sql = "INSERT INTO userActivity (userID,userEmail, loginTime, logoutTime) VALUES"
+        String sql = "INSERT INTO userActivity (userEmail, loginTime, logoutTime) VALUES"
                 +"("
-                    +"'" + userID + "',"
                     +"'" + userEmail + "',"
                     +"'" + loginTime + "',"
                     +"'" + logoutTime + "'"
