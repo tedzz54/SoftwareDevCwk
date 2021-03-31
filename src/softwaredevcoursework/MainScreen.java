@@ -5,6 +5,10 @@
  */
 package softwaredevcoursework;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author theod
@@ -17,6 +21,12 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen() {
         initComponents();
     }
+    
+    public MainScreen(String userEmail){
+        initComponents();
+        userEmailMain.setText(userEmail);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +37,62 @@ public class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        signOut = new javax.swing.JButton();
+        userEmailMain = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        signOut.setText("Sign Out");
+        signOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutActionPerformed(evt);
+            }
+        });
+
+        userEmailMain.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(299, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(signOut)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(userEmailMain)
+                        .addGap(40, 40, 40))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(userEmailMain)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(signOut)
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
+        JOptionPane.showMessageDialog(this,"You are now signed out. Redirecting to Sign in page!");
+        
+        
+        Date date = new Date();
+        long time = date.getTime();
+        Timestamp LogoutTime = new Timestamp(time);
+        userActivityTable.update(0, LogoutTime);
+        
+
+
+        SignIn signin = new SignIn();
+        signin.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_signOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +130,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton signOut;
+    private javax.swing.JLabel userEmailMain;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,8 @@ package softwaredevcoursework;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.util.Base64;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -156,11 +158,14 @@ public class SignIn extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"Incorrect password!");    
 
             } else {
-//                UserTable.insert(0, userName, userEmail,encryptedString);
-//                JOptionPane.showMessageDialog(this,"User successfully registered!");
-//                TimeUnit.SECONDS.sleep(1);
-                JOptionPane.showMessageDialog(this,"Signed in successfully!");  
-                MainScreen mainscreen = new MainScreen();
+
+                JOptionPane.showMessageDialog(this,"Signed in successfully!");
+                Date date = new Date();
+                long time = date.getTime();
+                Timestamp ts = new Timestamp(time);
+                
+                userActivityTable.insert(0,userEmail, ts, null);
+                MainScreen mainscreen = new MainScreen(userEmail);
                 mainscreen.setVisible(true);
                 this.setVisible(false);
 
@@ -208,6 +213,7 @@ public class SignIn extends javax.swing.JFrame {
                 new SignIn().setVisible(true);
             }
         });
+        
         
         
     }

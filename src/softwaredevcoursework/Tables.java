@@ -48,6 +48,7 @@ public class Tables {
         Connection connection = CustomerDatabase.getConnection();
         String sql = "CREATE TABLE if not exists userActivity"
                 +"("
+                    +"userID INTEGER,"
                     +"userEmail VARCHAR,"
                     +"loginTime DATETIME,"
                     +"logoutTime DATETIME"
