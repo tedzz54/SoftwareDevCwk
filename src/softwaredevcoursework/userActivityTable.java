@@ -43,18 +43,18 @@ public class userActivityTable {
         
     }
     
-    public static void update(int userID, Timestamp logoutTime) {
+    public static void update(String userEmail, Timestamp logoutTime) {
         
         Connection connection = CustomerDatabase.getConnection();
 
-        String sql = "UPDATE userActivity SET logoutTime = '" + logoutTime + "' WHERE userID = " + userID;
+        String sql = "UPDATE userActivity SET logoutTime = '" + logoutTime + "' WHERE userEmail = '" + userEmail + "'";
               
         
         try {
             
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-//            System.out.println("User " + userName + " has been updated!");
+
             connection.close();
             
         } catch (Exception ex) {
@@ -64,4 +64,6 @@ public class userActivityTable {
         }
         
     }
+    
+
 }

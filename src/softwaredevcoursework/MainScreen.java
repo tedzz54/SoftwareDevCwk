@@ -85,7 +85,8 @@ public class MainScreen extends javax.swing.JFrame {
         Date date = new Date();
         long time = date.getTime();
         Timestamp LogoutTime = new Timestamp(time);
-        userActivityTable.update(0, LogoutTime);
+        String userEmail1 = userEmailMain.getText();
+        userActivityTable.update(userEmail1, LogoutTime);
         
 
 
