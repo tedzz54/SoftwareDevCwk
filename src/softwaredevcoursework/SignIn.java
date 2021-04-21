@@ -165,10 +165,10 @@ public class SignIn extends javax.swing.JFrame {
                 Timestamp ts = new Timestamp(time);
                 
                 userActivityTable.insert(userEmail, ts, null);
-                MainScreenUser mainScreenUser = new MainScreenUser(userEmail);
-                mainScreenUser.setVisible(true);
-//                MainScreen mainscreen = new MainScreen(userEmail);
-//                mainscreen.setVisible(true);
+//                MainScreenUser mainScreenUser = new MainScreenUser(userEmail);
+//                mainScreenUser.setVisible(true);
+                MainScreenAdmin mainscreen = new MainScreenAdmin(userEmail);
+                mainscreen.setVisible(true);
                 this.setVisible(false);
 
             }

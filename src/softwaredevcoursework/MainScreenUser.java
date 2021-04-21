@@ -45,6 +45,11 @@ public class MainScreenUser extends javax.swing.JFrame {
         signOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         barChartButton.setText("Bar Chart");
         barChartButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,11 +80,6 @@ public class MainScreenUser extends javax.swing.JFrame {
         });
 
         userEmailMain.setText("jLabel1");
-        userEmailMain.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userEmailMainMouseClicked(evt);
-            }
-        });
 
         signOut.setText("Sign Out");
         signOut.addActionListener(new java.awt.event.ActionListener() {
@@ -130,10 +130,6 @@ public class MainScreenUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userEmailMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userEmailMainMouseClicked
-
-    }//GEN-LAST:event_userEmailMainMouseClicked
-
     private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
         JOptionPane.showMessageDialog(this,"You are now signed out. Redirecting to Sign in page!");
 
@@ -173,6 +169,16 @@ public class MainScreenUser extends javax.swing.JFrame {
         fourthchart.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        JOptionPane.showMessageDialog(this,"You will be automatically signed out!");
+
+        Date date = new Date();
+        long time = date.getTime();
+        java.sql.Timestamp LogoutTime = new java.sql.Timestamp(time);
+        String userEmail1 = userEmailMain.getText();
+        userActivityTable.update(userEmail1, LogoutTime);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

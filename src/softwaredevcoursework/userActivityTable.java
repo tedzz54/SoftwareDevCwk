@@ -46,7 +46,7 @@ public class userActivityTable {
         
         Connection connection = CustomerDatabase.getConnection();
 
-        String sql = "UPDATE userActivity SET logoutTime = '" + logoutTime + "' WHERE userEmail = '" + userEmail + "'";
+        String sql = "UPDATE userActivity SET logoutTime = '" + logoutTime + "' WHERE userEmail = '" + userEmail + "' AND logoutTime = '" + null + "'";
               
         
         try {

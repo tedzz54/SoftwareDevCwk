@@ -26,16 +26,14 @@ public class MainScreenAdmin extends javax.swing.JFrame {
      */
     public MainScreenAdmin() {
         initComponents();
-    
+
     }
-    
-    public MainScreenAdmin(String userEmail){
+
+    public MainScreenAdmin(String userEmail) {
         initComponents();
         userEmailMain.setText(userEmail);
-        
+
     }
-    
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,13 +51,18 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         updateTable = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        fourthChartButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         signOut.setText("Sign Out");
         signOut.addActionListener(new java.awt.event.ActionListener() {
@@ -69,11 +72,6 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         });
 
         userEmailMain.setText("jLabel1");
-        userEmailMain.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userEmailMainMouseClicked(evt);
-            }
-        });
 
         jTable1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -95,7 +93,12 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Pie Chart");
+        fourthChartButton.setText("Pie Chart");
+        fourthChartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fourthChartButtonActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Bar Chart");
 
@@ -119,7 +122,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fourthChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -145,7 +148,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fourthChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(userEmailMain)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,70 +164,69 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
-        JOptionPane.showMessageDialog(this,"You are now signed out. Redirecting to Sign in page!");
-        
-        
+        JOptionPane.showMessageDialog(this, "You are now signed out. Redirecting to Sign in page!");
+
         Date date = new Date();
         long time = date.getTime();
         Timestamp LogoutTime = new Timestamp(time);
         String userEmail1 = userEmailMain.getText();
         userActivityTable.update(userEmail1, LogoutTime);
-        
-
 
         SignIn signin = new SignIn();
         signin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_signOutActionPerformed
 
-    private void userEmailMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userEmailMainMouseClicked
+    private void fourthChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourthChartButtonActionPerformed
         
-    }//GEN-LAST:event_userEmailMainMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_fourthChartButtonActionPerformed
 
     private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
         String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
         Connection connection = null;
-        
-        
+
         try {
-            
+
             Driver driverSQLite = new org.sqlite.JDBC();
             DriverManager.registerDriver(driverSQLite);
             System.out.println("SQLite Driver loaded up successfuly!");
             Connection con = DriverManager.getConnection(urlSQLite);
             System.out.println("Connected to the database!");
-            
+
             Statement st = con.createStatement();
             String sql = "SELECT * FROM userActivity";
             ResultSet resultSet2 = st.executeQuery(sql);
-            
-            
-            while(resultSet2.next()){
+
+            while (resultSet2.next()) {
                 String userEmail = resultSet2.getString("userEmail");
 
                 String loginTime = resultSet2.getString("loginTime");
                 String logoutTime = resultSet2.getString("logoutTime");
-                
-                String DBdata[] = {userEmail,loginTime,logoutTime};
-                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
-                
+
+                String DBdata[] = {userEmail, loginTime, logoutTime};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
                 tblModel.addRow(DBdata);
-                
-                
-                
+
             }
-            
+
             connection.close();
-            
-        } catch (Exception ex){
+
+        } catch (Exception ex) {
             System.out.println("Error " + ex.getMessage());
         }
     }//GEN-LAST:event_updateTableActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        JOptionPane.showMessageDialog(this,"You will be automatically signed out!");
+
+        Date date = new Date();
+        long time = date.getTime();
+        java.sql.Timestamp LogoutTime = new java.sql.Timestamp(time);
+        String userEmail1 = userEmailMain.getText();
+        userActivityTable.update(userEmail1, LogoutTime);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -260,12 +262,11 @@ public class MainScreenAdmin extends javax.swing.JFrame {
                 new MainScreenAdmin().setVisible(true);
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton fourthChartButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
