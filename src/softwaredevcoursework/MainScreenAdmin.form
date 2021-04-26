@@ -173,7 +173,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="fourthChartButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pie Chart"/>
+        <Property name="text" type="java.lang.String" value="FourthChart"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fourthChartButtonActionPerformed"/>
@@ -198,6 +198,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Pie Chart"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PieChartActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

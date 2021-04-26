@@ -13,7 +13,7 @@ public class TrafficDatabaseConnect {
     
     public static Connection getConnection(){
         
-        String urlSQLite = "jdbc:sqlite:TrafficDatabse.db";
+        String urlSQLite = "jdbc:sqlite:TrafficDatabase.db";
         
         // Loading up the SQLite Driver
         // Surrounded with try-catch to catch if there any exceptions

@@ -5,6 +5,7 @@
  */
 package softwaredevcoursework;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -13,13 +14,23 @@ import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
  * @author theod
  */
 public class MainScreenAdmin extends javax.swing.JFrame {
+    
+    ChartFrame frame;
 
     /**
      * Creates new form MainScreen
@@ -32,6 +43,75 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     public MainScreenAdmin(String userEmail) {
         initComponents();
         userEmailMain.setText(userEmail);
+
+    }
+    
+     public void drawPie() {
+        Connection connection = TrafficDatabaseConnect.getConnection();
+        Statement stmt = null;
+        JDBCCategoryDataset dataset = null;
+
+       
+        try {
+            /**
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("Select * from employee limit 6");
+            
+            int n = 0;
+            while (rs.next()) {
+                int numColumns = rs.getMetaData().getColumnCount();
+                n++;
+                for (int i = 1; i <= numColumns; i++) {
+                    System.out.print(" " + rs.getObject(i));
+                }
+
+                System.out.println("");
+            }
+
+            rs.close();
+            */
+
+            String sql = "SELECT countPointId, count(*) As Number_Of FROM vehicleType GROUP BY allMotorVehicles ";
+
+            dataset = new JDBCCategoryDataset(connection, sql);
+
+            System.out.println("dataset cols and rows : " + dataset.getColumnCount() + "  " + dataset.getRowCount());
+            
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+        }
+        JFreeChart chart = ChartFactory.createBarChart("Volume of Vehicle at Count Point: ",
+                "Vehicle Type", "Volume", dataset, PlotOrientation.VERTICAL, false, true, false);
+        chart.setBackgroundPaint(Color.white);
+        chart.getTitle().setPaint(Color.blue);
+
+        CategoryPlot p = chart.getCategoryPlot();
+        p.setRangeGridlinePaint(Color.blue);
+        BarRenderer renderer = (BarRenderer) p.getRenderer();
+        renderer.setDrawBarOutline(true);
+        renderer.setShadowVisible(true);
+        renderer.setItemMargin(-4);
+        renderer.setSeriesPaint(0, Color.blue);
+
+        frame = new ChartFrame("Vehicle Volume", chart);
+        frame.setVisible(true);
+        frame.setSize(400, 350);
+       
 
     }
 
@@ -93,7 +173,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             }
         });
 
-        fourthChartButton.setText("Pie Chart");
+        fourthChartButton.setText("FourthChart");
         fourthChartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fourthChartButtonActionPerformed(evt);
@@ -107,6 +187,11 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         jButton4.setText("Admin Panel");
 
         jButton5.setText("Pie Chart");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PieChartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,6 +312,10 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         String userEmail1 = userEmailMain.getText();
         userActivityTable.update(userEmail1, LogoutTime);
     }//GEN-LAST:event_formWindowClosing
+
+    private void PieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PieChartActionPerformed
+        drawPie();
+    }//GEN-LAST:event_PieChartActionPerformed
 
     /**
      * @param args the command line arguments
