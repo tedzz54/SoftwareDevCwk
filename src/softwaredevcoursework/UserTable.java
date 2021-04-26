@@ -17,16 +17,17 @@ public class UserTable {
     
     
     
-    public static void insert(int userID,String userName, String userEmail, String userPass) {
+    public static void insert(int userID,String userName, String userEmail, String userPass, Boolean adminPriv) {
         
         Connection connection = CustomerDatabase.getConnection();
         
-        String sql = "INSERT INTO User (userID,userName, userEmail, userPass) VALUES"
+        String sql = "INSERT INTO User (userID,userName, userEmail, userPass, adminPriv) VALUES"
                 +"("
                     +"'" + userID + "',"
                     +"'" + userName + "',"
                     +"'" + userEmail + "',"
-                    +"'" + userPass + "'"
+                    +"'" + userPass + "',"
+                    +"'" + adminPriv + "'"
                 +")";
         
         try {
@@ -144,6 +145,33 @@ public class UserTable {
         
     }
     
+    public static ResultSet checkAdmin(String userEmail,Boolean adminPriv) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT * FROM User WHERE userEmail = '" + userEmail + "' AND adminPriv = '" + adminPriv + "'";
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+    }
     
     
 }
