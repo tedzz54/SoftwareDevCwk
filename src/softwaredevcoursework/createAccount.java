@@ -138,7 +138,7 @@ public class createAccount extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"An account is already registered with this email");
                 
             } else {
-                UserTable.insert(1, userName, userEmail,encryptedString);
+                UserTable.insert(1, userName, userEmail,encryptedString,false);
                 JOptionPane.showMessageDialog(this,"User successfully registered!");
                 TimeUnit.SECONDS.sleep(1);
                 SignIn signin = new SignIn();

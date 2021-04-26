@@ -124,12 +124,14 @@ public class SignIn extends javax.swing.JFrame {
 
         String userEmail = uEmail.getText();
         String userPass = uPass.getText();
+        Boolean adminCheck = false;
         
         String encryptedString = getEncodedString(userPass);
         userPass = encryptedString;
 
         ResultSet userResultSet = UserTable.get(userEmail);
         ResultSet userResultSet1 = UserTable.getPass(userPass);
+        ResultSet userResultSet2 = UserTable.checkAdmin(userEmail,adminCheck);
 
         
 
@@ -138,6 +140,7 @@ public class SignIn extends javax.swing.JFrame {
             
 
             String emailRegex = "^(.+)@(.+)$";
+            
 
 
 
@@ -155,21 +158,32 @@ public class SignIn extends javax.swing.JFrame {
                 
                 
             } else if (!userResultSet1.next()){
-                JOptionPane.showMessageDialog(this,"Incorrect password!");    
-
+                JOptionPane.showMessageDialog(this,"Incorrect password!");
+            
+            } else if (!userResultSet2.next()){
+                JOptionPane.showMessageDialog(this,"Signed in successfully!");
+                Date date = new Date();
+                long time = date.getTime();
+                Timestamp ts = new Timestamp(time);
+                
+                
+                userActivityTable.insert(userEmail, ts, null);
+                MainScreenAdmin mainscreen = new MainScreenAdmin(userEmail);
+                mainscreen.setVisible(true);
+                this.setVisible(false);
+                
             } else {
-
+                
                 JOptionPane.showMessageDialog(this,"Signed in successfully!");
                 Date date = new Date();
                 long time = date.getTime();
                 Timestamp ts = new Timestamp(time);
                 
                 userActivityTable.insert(userEmail, ts, null);
-//                MainScreenUser mainScreenUser = new MainScreenUser(userEmail);
-//                mainScreenUser.setVisible(true);
-                MainScreenAdmin mainscreen = new MainScreenAdmin(userEmail);
-                mainscreen.setVisible(true);
+                MainScreenUser mainScreenUser = new MainScreenUser(userEmail);
+                mainScreenUser.setVisible(true);
                 this.setVisible(false);
+                
 
             }
 
