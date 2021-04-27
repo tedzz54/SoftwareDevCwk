@@ -5,15 +5,76 @@
  */
 package softwaredevcoursework;
 
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
+import org.jfree.data.jdbc.JDBCPieDataset;
+
 /**
  *
  * @author theod
  */
 public class PieChartDashboard extends javax.swing.JFrame {
+    
+    ChartFrame frame;
 
     /**
      * Creates new form PieChartDashboard
      */
+    
+    public void drawPie() {
+        Connection connection = TrafficDatabaseConnect.getConnection();
+        Statement stmt = null;     
+        DefaultPieDataset pieDataset = null;
+     
+        try {  
+            
+            stmt = connection.createStatement( );
+            pieDataset = new JDBCPieDataset(connection, "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = 20716 AND directionOfTravel = \"S\" AND date = \"04/05/2005\";" );
+            
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+        }
+        JFreeChart chart = ChartFactory.createPieChart(
+        "Traffic Volume at different times",        
+        pieDataset,                
+        true,                     
+        true,           
+        false );
+
+       frame = new ChartFrame("Vehicle Volume", chart);
+       frame.setVisible(true);
+       frame.setSize(400, 350);   
+    }
+    
     public PieChartDashboard() {
         initComponents();
     }

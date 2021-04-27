@@ -104,6 +104,11 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         jButton4.setText("Admin Panel");
 
         jButton5.setText("Pie Chart");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pieActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,6 +230,11 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             System.out.println("Error " + ex.getMessage());
         }
     }//GEN-LAST:event_updateTableActionPerformed
+
+    private void pieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieActionPerformed
+        PieChartDashboard piechart = new PieChartDashboard();
+        piechart.drawPie();
+    }//GEN-LAST:event_pieActionPerformed
 
     /**
      * @param args the command line arguments
