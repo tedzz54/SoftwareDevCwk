@@ -43,6 +43,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     public MainScreenAdmin(String userEmail) {
         initComponents();
         userEmailMain.setText(userEmail);
+        showData();
 
     }
     
@@ -352,6 +353,42 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             }
         });
 
+    }
+    
+    public void showData(){
+        String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
+        Connection connection = null;
+
+        try {
+
+            Driver driverSQLite = new org.sqlite.JDBC();
+            DriverManager.registerDriver(driverSQLite);
+            System.out.println("SQLite Driver loaded up successfuly!");
+            Connection con = DriverManager.getConnection(urlSQLite);
+            System.out.println("Connected to the database!");
+
+            Statement st = con.createStatement();
+            String sql = "SELECT * FROM userActivity";
+            ResultSet resultSet2 = st.executeQuery(sql);
+
+            while (resultSet2.next()) {
+                String userEmail = resultSet2.getString("userEmail");
+
+                String loginTime = resultSet2.getString("loginTime");
+                String logoutTime = resultSet2.getString("logoutTime");
+
+                String DBdata[] = {userEmail, loginTime, logoutTime};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                tblModel.addRow(DBdata);
+
+            }
+
+            connection.close();
+
+        } catch (Exception ex) {
+            System.out.println("Error " + ex.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
