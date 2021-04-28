@@ -23,6 +23,8 @@ public class Tables {
                     +"userEmail VARCHAR (50),"
                     +"userPass VARCHAR (50),"
                     +"adminPriv BOOLEAN (50)"
+                    +"securityOne VARCHAR (50)"
+                    +"securityTwo VARCHAR (50)"
                 +")";
         
         // Using a try-catch to catch if there are any erros when creating the table

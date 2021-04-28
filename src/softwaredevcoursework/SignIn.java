@@ -121,7 +121,7 @@ public class SignIn extends javax.swing.JFrame {
     }//GEN-LAST:event_createAccount1ActionPerformed
 
     private void signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInActionPerformed
-
+        
         String userEmail = uEmail.getText();
         String userPass = uPass.getText();
         Boolean adminCheck = false;
