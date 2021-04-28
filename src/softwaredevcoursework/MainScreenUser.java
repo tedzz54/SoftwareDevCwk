@@ -5,29 +5,48 @@
  */
 package softwaredevcoursework;
 
-import java.security.Timestamp;
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.jdbc.JDBCPieDataset;
 
 /**
  *
- * @author theod
+ * @author theod, Marcin Markowski
  */
 public class MainScreenUser extends javax.swing.JFrame {
-
+    String direction = "N";
+    String date = "04/05/2005";
+    int countPoint = 20716;
+    
     /**
      * Creates new form MainScreenUser
      */
     public MainScreenUser() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        jPanelCharts.setLayout(new java.awt.BorderLayout());
+        
     }
     
     public MainScreenUser(String userEmail){
-        initComponents();
+        initComponents();      
         userEmailMain.setText(userEmail);
+        this.setLocationRelativeTo(null);
+        jPanelCharts.setLayout(new java.awt.BorderLayout());
         
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,12 +56,38 @@ public class MainScreenUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
+        buttonGroupDirection = new javax.swing.ButtonGroup();
         barChartButton = new javax.swing.JButton();
         lineChartButton = new javax.swing.JButton();
         pieChartButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         userEmailMain = new javax.swing.JLabel();
         signOut = new javax.swing.JButton();
+        textFieldCountPoint = new java.awt.TextField();
+        jRadioButtonNorth = new javax.swing.JRadioButton();
+        jRadioButtonSouth = new javax.swing.JRadioButton();
+        jRadioButtonWest = new javax.swing.JRadioButton();
+        jRadioButtonEast = new javax.swing.JRadioButton();
+        textFieldDate = new java.awt.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        signOut1 = new javax.swing.JButton();
+        jPanelCharts = new javax.swing.JPanel();
+
+        jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +133,83 @@ public class MainScreenUser extends javax.swing.JFrame {
             }
         });
 
+        textFieldCountPoint.setText("20716");
+        textFieldCountPoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CountPointTextFieldActionPerformed(evt);
+            }
+        });
+
+        buttonGroupDirection.add(jRadioButtonNorth);
+        jRadioButtonNorth.setSelected(true);
+        jRadioButtonNorth.setText("North");
+        jRadioButtonNorth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NorthRadioActionPerformed(evt);
+            }
+        });
+
+        buttonGroupDirection.add(jRadioButtonSouth);
+        jRadioButtonSouth.setText("South");
+        jRadioButtonSouth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SouthRadioActionPerformed(evt);
+            }
+        });
+
+        buttonGroupDirection.add(jRadioButtonWest);
+        jRadioButtonWest.setText("West");
+        jRadioButtonWest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WestRadioActionPerformed(evt);
+            }
+        });
+
+        buttonGroupDirection.add(jRadioButtonEast);
+        jRadioButtonEast.setText("East");
+        jRadioButtonEast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EastRadioActionPerformed(evt);
+            }
+        });
+
+        textFieldDate.setText("04/05/2005");
+        textFieldDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DateTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Date");
+
+        jLabel2.setText("Count Point");
+
+        jLabel3.setText("Direction");
+
+        signOut1.setText("Confirm");
+        signOut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
+
+        jPanelCharts.setAutoscrolls(true);
+        jPanelCharts.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jPanelCharts.setFocusTraversalPolicyProvider(true);
+        jPanelCharts.setInheritsPopupMenu(true);
+        jPanelCharts.setPreferredSize(new java.awt.Dimension(0, 700));
+
+        javax.swing.GroupLayout jPanelChartsLayout = new javax.swing.GroupLayout(jPanelCharts);
+        jPanelCharts.setLayout(jPanelChartsLayout);
+        jPanelChartsLayout.setHorizontalGroup(
+            jPanelChartsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanelChartsLayout.setVerticalGroup(
+            jPanelChartsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 338, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +223,7 @@ public class MainScreenUser extends javax.swing.JFrame {
                 .addComponent(pieChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(userEmailMain)
@@ -109,7 +231,38 @@ public class MainScreenUser extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(signOut)
                         .addGap(14, 14, 14))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelCharts, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldCountPoint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jRadioButtonWest))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButtonSouth)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jRadioButtonNorth))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonEast)
+                        .addGap(32, 32, 32)
+                        .addComponent(signOut1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jRadioButtonEast, jRadioButtonNorth, jRadioButtonSouth, jRadioButtonWest});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -124,7 +277,38 @@ public class MainScreenUser extends javax.swing.JFrame {
                         .addComponent(userEmailMain)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(signOut)))
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelCharts, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldCountPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonNorth)
+                                        .addGap(15, 15, 15))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jRadioButtonWest)
+                                            .addComponent(jRadioButtonEast))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
+                        .addComponent(jRadioButtonSouth))
+                    .addComponent(signOut1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -163,8 +347,46 @@ public class MainScreenUser extends javax.swing.JFrame {
     }//GEN-LAST:event_lineChartButtonActionPerformed
 
     private void pieChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieChartButtonActionPerformed
-        PieChartDashboard piechart = new PieChartDashboard();
-        piechart.drawPie();
+        Connection connection = TrafficDatabaseConnect.getConnection();
+        Statement stmt = null;     
+        DefaultPieDataset pieDataset = null;
+
+        try {             
+            stmt = connection.createStatement( );
+            pieDataset = new JDBCPieDataset(connection, "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = " + countPoint + " AND directionOfTravel = '" + direction + "' AND date = '" + date + "';");
+            
+                
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+        }
+       JFreeChart chart = ChartFactory.createPieChart3D("Hourly traffic volume at Count Point: " + countPoint + " on: " + date + " direction: " + direction , pieDataset, true, true, false );
+       //Custom label that displays the times + values
+       PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("{0} = {1}");
+       final PiePlot3D plot = (PiePlot3D) chart.getPlot();
+       plot.setStartAngle(270);
+       plot.setForegroundAlpha(0.60f);
+       plot.setInteriorGap(0.02);
+       plot.setLabelGenerator(labelGenerator);
+              
+       ChartPanel chartPanel = new ChartPanel(chart);
+       jPanelCharts.removeAll();
+       jPanelCharts.add(chartPanel, BorderLayout.CENTER);
+       jPanelCharts.validate();      
     }//GEN-LAST:event_pieChartButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -173,6 +395,45 @@ public class MainScreenUser extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void NorthRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NorthRadioActionPerformed
+     
+    }//GEN-LAST:event_NorthRadioActionPerformed
+
+    private void CountPointTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CountPointTextFieldActionPerformed
+      
+    }//GEN-LAST:event_CountPointTextFieldActionPerformed
+
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        if (jRadioButtonNorth.isSelected())
+            direction = "N";           
+        if (jRadioButtonSouth.isSelected())
+            direction = "S";
+        if (jRadioButtonWest.isSelected())
+            direction = "W";
+        if (jRadioButtonEast.isSelected())
+            direction = "E";
+        date = textFieldDate.getText();
+        countPoint = Integer.parseInt(textFieldCountPoint.getText());
+        System.out.println(date + " " + countPoint + " " + direction);
+    }//GEN-LAST:event_confirmActionPerformed
+
+    private void DateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateTextFieldActionPerformed
+       
+    }//GEN-LAST:event_DateTextFieldActionPerformed
+
+    private void SouthRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SouthRadioActionPerformed
+      
+    }//GEN-LAST:event_SouthRadioActionPerformed
+
+    private void WestRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WestRadioActionPerformed
+        
+    }//GEN-LAST:event_WestRadioActionPerformed
+
+    private void EastRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EastRadioActionPerformed
+       
+    }//GEN-LAST:event_EastRadioActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -204,16 +465,29 @@ public class MainScreenUser extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainScreenUser().setVisible(true);
-            }
+            }           
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton barChartButton;
+    private javax.swing.ButtonGroup buttonGroupDirection;
     private javax.swing.JButton jButton1;
+    private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanelCharts;
+    private javax.swing.JRadioButton jRadioButtonEast;
+    private javax.swing.JRadioButton jRadioButtonNorth;
+    private javax.swing.JRadioButton jRadioButtonSouth;
+    private javax.swing.JRadioButton jRadioButtonWest;
     private javax.swing.JButton lineChartButton;
     private javax.swing.JButton pieChartButton;
     private javax.swing.JButton signOut;
+    private javax.swing.JButton signOut1;
+    private java.awt.TextField textFieldCountPoint;
+    private java.awt.TextField textFieldDate;
     private javax.swing.JLabel userEmailMain;
     // End of variables declaration//GEN-END:variables
 }
