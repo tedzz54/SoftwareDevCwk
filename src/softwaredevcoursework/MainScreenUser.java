@@ -5,11 +5,13 @@
  */
 package softwaredevcoursework;
 
+import java.sql.ResultSet;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -347,14 +349,25 @@ public class MainScreenUser extends javax.swing.JFrame {
     }//GEN-LAST:event_lineChartButtonActionPerformed
 
     private void pieChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieChartButtonActionPerformed
+        JFrame frame = new JFrame("Error");
         Connection connection = TrafficDatabaseConnect.getConnection();
         Statement stmt = null;     
         DefaultPieDataset pieDataset = null;
+        String Query = "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = " + countPoint + " AND directionOfTravel = '" + direction + "' AND date = '" + date + "';";
 
-        try {             
+        try {      
+                  
             stmt = connection.createStatement( );
-            pieDataset = new JDBCPieDataset(connection, "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = " + countPoint + " AND directionOfTravel = '" + direction + "' AND date = '" + date + "';");
-            
+            pieDataset = new JDBCPieDataset(connection, Query);           
+            ResultSet rs = stmt.executeQuery(Query);   
+            if (rs.next() == false) {
+                System.out.println("ResultSet in empty in Java");
+                JOptionPane.showMessageDialog(frame,
+                "Count Point: " + countPoint +" was not measured on the selected date or direction",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE);              
+              } 
+                
                 
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
@@ -382,7 +395,7 @@ public class MainScreenUser extends javax.swing.JFrame {
        plot.setForegroundAlpha(0.60f);
        plot.setInteriorGap(0.02);
        plot.setLabelGenerator(labelGenerator);
-              
+       //Printing the chart on the Panel
        ChartPanel chartPanel = new ChartPanel(chart);
        jPanelCharts.removeAll();
        jPanelCharts.add(chartPanel, BorderLayout.CENTER);
