@@ -41,6 +41,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        passwordRec = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 0, 0));
@@ -67,6 +68,13 @@ public class SignIn extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         jLabel4.setText("Sign In");
 
+        passwordRec.setText("Password Recovery");
+        passwordRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordRecActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,8 +98,10 @@ public class SignIn extends javax.swing.JFrame {
                         .addGap(175, 175, 175)
                         .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(createAccount1)))
+                        .addGap(123, 123, 123)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(createAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordRec, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,7 +121,9 @@ public class SignIn extends javax.swing.JFrame {
                 .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(createAccount1)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(passwordRec)
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -195,6 +207,11 @@ public class SignIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signInActionPerformed
 
+    private void passwordRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordRecActionPerformed
+       passwordRecovery PasswordRecovery = new passwordRecovery();
+       PasswordRecovery.setVisible(true);
+    }//GEN-LAST:event_passwordRecActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +261,7 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton passwordRec;
     private javax.swing.JButton signIn;
     private javax.swing.JTextField uEmail;
     private javax.swing.JPasswordField uPass;
