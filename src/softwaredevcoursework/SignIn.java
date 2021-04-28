@@ -39,14 +39,10 @@ public class SignIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         uEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-<<<<<<< HEAD
-        jLabel4 = new javax.swing.JLabel();
-        passwordRec = new javax.swing.JButton();
-=======
         uPass = new javax.swing.JPasswordField();
         signIn = new javax.swing.JButton();
         createAccount1 = new javax.swing.JButton();
->>>>>>> f1a3233 (Added the colour schemes)
+        passwordRec = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -61,18 +57,11 @@ public class SignIn extends javax.swing.JFrame {
         jLabel1.setText("E-mail");
 
         uEmail.setBackground(new java.awt.Color(255, 255, 255));
-        uEmail.setForeground(new java.awt.Color(0, 0, 0));
-        uEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                uEmailActionPerformed(evt);
-            }
-        });
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password");
 
         uPass.setBackground(new java.awt.Color(255, 255, 255));
-        uPass.setForeground(new java.awt.Color(0, 0, 0));
 
         signIn.setBackground(new java.awt.Color(153, 0, 0));
         signIn.setFont(new java.awt.Font("Segoe Print", 0, 36)); // NOI18N
@@ -95,26 +84,16 @@ public class SignIn extends javax.swing.JFrame {
             }
         });
 
-<<<<<<< HEAD
+        passwordRec.setBackground(new java.awt.Color(153, 0, 0));
+        passwordRec.setForeground(new java.awt.Color(255, 255, 255));
         passwordRec.setText("Password Recovery");
+        passwordRec.setBorder(null);
         passwordRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordRecActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 100, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(uPass, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-=======
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,7 +103,6 @@ public class SignIn extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
->>>>>>> f1a3233 (Added the colour schemes)
                             .addComponent(uEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
@@ -132,22 +110,15 @@ public class SignIn extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(169, 169, 169)
                         .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-<<<<<<< HEAD
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(createAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordRec, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(createAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(161, 161, 161)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordRec, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(104, Short.MAX_VALUE))
->>>>>>> f1a3233 (Added the colour schemes)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,14 +136,10 @@ public class SignIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-<<<<<<< HEAD
-                .addComponent(createAccount1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordRec)
-                .addGap(45, 45, 45))
-=======
                 .addComponent(createAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordRec, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,7 +153,6 @@ public class SignIn extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
->>>>>>> f1a3233 (Added the colour schemes)
         );
 
         pack();
@@ -270,16 +236,10 @@ public class SignIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signInActionPerformed
 
-<<<<<<< HEAD
     private void passwordRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordRecActionPerformed
-       passwordRecovery PasswordRecovery = new passwordRecovery();
-       PasswordRecovery.setVisible(true);
+        passwordRecovery passwordRec = new passwordRecovery();
+        passwordRec.setVisible(true);
     }//GEN-LAST:event_passwordRecActionPerformed
-=======
-    private void uEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_uEmailActionPerformed
->>>>>>> f1a3233 (Added the colour schemes)
 
     /**
      * @param args the command line arguments
@@ -330,11 +290,8 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-<<<<<<< HEAD
-    private javax.swing.JButton passwordRec;
-=======
     private javax.swing.JPanel jPanel1;
->>>>>>> f1a3233 (Added the colour schemes)
+    private javax.swing.JButton passwordRec;
     private javax.swing.JButton signIn;
     private javax.swing.JTextField uEmail;
     private javax.swing.JPasswordField uPass;
