@@ -49,6 +49,61 @@ public class MainScreenUser extends javax.swing.JFrame {
         
     }
     
+    public void drawPie(){
+        JFrame frame = new JFrame("Error");
+        Connection connection = TrafficDatabaseConnect.getConnection();
+        Statement stmt = null;     
+        DefaultPieDataset pieDataset = null;
+        String Query = "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = " + countPoint + " AND directionOfTravel = '" + direction + "' AND date = '" + date + "';";
+
+        try {      
+                  
+            stmt = connection.createStatement( );
+            pieDataset = new JDBCPieDataset(connection, Query);           
+            ResultSet rs = stmt.executeQuery(Query);   
+            if (rs.next() == false) {
+                System.out.println("ResultSet in empty in Java");
+                JOptionPane.showMessageDialog(frame,
+                "Count Point: " + countPoint +" was not measured on the selected date or direction",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE);              
+              } 
+                
+                
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.err.println("SQLException: " + e.getMessage());
+                }
+            }
+        }
+       JFreeChart chart = ChartFactory.createPieChart3D("Hourly traffic volume at Count Point: " + countPoint + " on: " + date + " direction: " + direction , pieDataset, true, true, false );
+       //Custom label that displays the times + values
+       PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("{0} = {1}");
+       final PiePlot3D plot = (PiePlot3D) chart.getPlot();
+       plot.setStartAngle(270);
+       plot.setForegroundAlpha(0.60f);
+       plot.setInteriorGap(0.02);
+       plot.setLabelGenerator(labelGenerator);
+       //Printing the chart on the Panel
+       ChartPanel chartPanel = new ChartPanel(chart);
+       jPanelCharts.removeAll();
+       jPanelCharts.add(chartPanel, BorderLayout.CENTER);
+       jPanelCharts.validate();          
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -349,57 +404,7 @@ public class MainScreenUser extends javax.swing.JFrame {
     }//GEN-LAST:event_lineChartButtonActionPerformed
 
     private void pieChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieChartButtonActionPerformed
-        JFrame frame = new JFrame("Error");
-        Connection connection = TrafficDatabaseConnect.getConnection();
-        Statement stmt = null;     
-        DefaultPieDataset pieDataset = null;
-        String Query = "SELECT  time, allMotorVehicle FROM countPoint JOIN vehicleType ON countPoint.countPointId = vehicleType.countPointId WHERE countPoint = " + countPoint + " AND directionOfTravel = '" + direction + "' AND date = '" + date + "';";
-
-        try {      
-                  
-            stmt = connection.createStatement( );
-            pieDataset = new JDBCPieDataset(connection, Query);           
-            ResultSet rs = stmt.executeQuery(Query);   
-            if (rs.next() == false) {
-                System.out.println("ResultSet in empty in Java");
-                JOptionPane.showMessageDialog(frame,
-                "Count Point: " + countPoint +" was not measured on the selected date or direction",
-                "Query Error",
-                JOptionPane.ERROR_MESSAGE);              
-              } 
-                
-                
-        } catch (SQLException ex) {
-            System.err.println("SQLException: " + ex.getMessage());
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    System.err.println("SQLException: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.err.println("SQLException: " + e.getMessage());
-                }
-            }
-        }
-       JFreeChart chart = ChartFactory.createPieChart3D("Hourly traffic volume at Count Point: " + countPoint + " on: " + date + " direction: " + direction , pieDataset, true, true, false );
-       //Custom label that displays the times + values
-       PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator("{0} = {1}");
-       final PiePlot3D plot = (PiePlot3D) chart.getPlot();
-       plot.setStartAngle(270);
-       plot.setForegroundAlpha(0.60f);
-       plot.setInteriorGap(0.02);
-       plot.setLabelGenerator(labelGenerator);
-       //Printing the chart on the Panel
-       ChartPanel chartPanel = new ChartPanel(chart);
-       jPanelCharts.removeAll();
-       jPanelCharts.add(chartPanel, BorderLayout.CENTER);
-       jPanelCharts.validate();      
+        drawPie();
     }//GEN-LAST:event_pieChartButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -428,6 +433,7 @@ public class MainScreenUser extends javax.swing.JFrame {
         date = textFieldDate.getText();
         countPoint = Integer.parseInt(textFieldCountPoint.getText());
         System.out.println(date + " " + countPoint + " " + direction);
+        drawPie();
     }//GEN-LAST:event_confirmActionPerformed
 
     private void DateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateTextFieldActionPerformed
