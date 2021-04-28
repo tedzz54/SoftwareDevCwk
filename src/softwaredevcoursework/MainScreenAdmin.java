@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * @author theod
  */
 public class MainScreenAdmin extends javax.swing.JFrame {
-
+    JFrame frame = new JFrame();
     /**
      * Creates new form MainScreen
      */
@@ -35,8 +36,11 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         
     }
     
+<<<<<<< Updated upstream
   
 
+=======
+>>>>>>> Stashed changes
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,9 +64,67 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< Updated upstream
 
         signOut.setText("Sign Out");
         signOut.addActionListener(new java.awt.event.ActionListener() {
+=======
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+
+        jButton4.setBackground(new java.awt.Color(153, 0, 0));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("User View");
+        jButton4.setBorder(null);
+        jButton4.setMaximumSize(new java.awt.Dimension(54, 16));
+        jButton4.setMinimumSize(new java.awt.Dimension(54, 16));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminPanelActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(153, 0, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Bar Chart");
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BarChartActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(153, 0, 0));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Line Chart");
+        jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LineChartActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(153, 0, 0));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Pie Chart");
+        jButton5.setBorder(null);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PieChartActionPerformed(evt);
+            }
+        });
+
+        fourthChartButton.setBackground(new java.awt.Color(153, 0, 0));
+        fourthChartButton.setForeground(new java.awt.Color(255, 255, 255));
+        fourthChartButton.setText("FourthChart");
+        fourthChartButton.setBorder(null);
+        fourthChartButton.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> Stashed changes
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signOutActionPerformed(evt);
             }
@@ -116,6 +178,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< Updated upstream
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,6 +191,28 @@ public class MainScreenAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+=======
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(fourthChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(userWindow, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+>>>>>>> Stashed changes
                         .addComponent(userEmailMain)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -182,6 +267,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_signOutActionPerformed
 
+<<<<<<< Updated upstream
     private void userEmailMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userEmailMainMouseClicked
         
     }//GEN-LAST:event_userEmailMainMouseClicked
@@ -190,6 +276,32 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+=======
+    private void fourthChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourthChartButtonActionPerformed
+        JOptionPane.showMessageDialog(frame,
+                "Switch to user view in order to see the charts",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE); 
+
+    }//GEN-LAST:event_fourthChartButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        JOptionPane.showMessageDialog(this, "You will be automatically signed out!");
+
+        Date date = new Date();
+        long time = date.getTime();
+        java.sql.Timestamp LogoutTime = new java.sql.Timestamp(time);
+        String userEmail1 = userEmailMain.getText();
+        userActivityTable.update(userEmail1, LogoutTime);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void PieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PieChartActionPerformed
+        JOptionPane.showMessageDialog(frame,
+                "Switch to user view in order to see the charts",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE);   
+    }//GEN-LAST:event_PieChartActionPerformed
+>>>>>>> Stashed changes
 
     private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
         String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
@@ -235,6 +347,26 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         PieChartDashboard piechart = new PieChartDashboard();
         piechart.drawPie();
     }//GEN-LAST:event_pieActionPerformed
+
+    private void LineChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineChartActionPerformed
+        JOptionPane.showMessageDialog(frame,
+                "Switch to user view in order to see the charts",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE); 
+    }//GEN-LAST:event_LineChartActionPerformed
+
+    private void BarChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BarChartActionPerformed
+        JOptionPane.showMessageDialog(frame,
+                "Switch to user view in order to see the charts",
+                "Query Error",
+                JOptionPane.ERROR_MESSAGE); 
+    }//GEN-LAST:event_BarChartActionPerformed
+
+    private void AdminPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminPanelActionPerformed
+        MainScreenUser mainScreenUser = new MainScreenUser();
+        mainScreenUser.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_AdminPanelActionPerformed
 
     /**
      * @param args the command line arguments
