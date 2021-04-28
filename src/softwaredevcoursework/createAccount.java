@@ -5,9 +5,12 @@
  */
 package softwaredevcoursework;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Base64;
 import javax.swing.JOptionPane;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -115,9 +118,15 @@ public class createAccount extends javax.swing.JFrame {
           String userEmail = uemail.getText();
           String userPass = upass.getText();
           
+          
           ResultSet userResultSet = UserTable.get(userEmail);
           
+          
           String encryptedString = getEncodedString(userPass);
+          
+          
+          
+          
           
          
           
@@ -138,11 +147,14 @@ public class createAccount extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,"An account is already registered with this email");
                 
             } else {
-                UserTable.insert(1, userName, userEmail,encryptedString,false);
+                
+                assingUserId(0);
+                int assingUserId = 0;
+                int userIdFree = assingUserId;
+                UserTable.insert(3, userName, userEmail,encryptedString,false);
                 JOptionPane.showMessageDialog(this,"User successfully registered!");
                 TimeUnit.SECONDS.sleep(1);
-                SignIn signin = new SignIn();
-                signin.setVisible(true);
+
                 this.setVisible(false);
                 
                 
@@ -174,6 +186,21 @@ public class createAccount extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static int assingUserId(int availabeUserId){
+
+        ResultSet userResultSet1 = UserTable.getUserId(availabeUserId);
+        
+        try {
+            while (userResultSet1.next()){
+                availabeUserId ++;
+            }
+                
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+        }
+        return availabeUserId;
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createAccount;

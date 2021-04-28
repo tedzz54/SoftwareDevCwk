@@ -173,5 +173,36 @@ public class UserTable {
         
     }
     
+    public static ResultSet getUserId(int userID) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT * FROM User WHERE userID = '" + userID + "'";
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+        
+    }
+    
+    
+    
     
 }

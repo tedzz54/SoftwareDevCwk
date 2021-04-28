@@ -5,7 +5,6 @@
  */
 package softwaredevcoursework;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -14,23 +13,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
  * @author theod
  */
 public class MainScreenAdmin extends javax.swing.JFrame {
-    
-    ChartFrame frame;
 
     /**
      * Creates new form MainScreen
@@ -44,75 +33,6 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         initComponents();
         userEmailMain.setText(userEmail);
         showData();
-
-    }
-    
-     public void drawPie() {
-        Connection connection = TrafficDatabaseConnect.getConnection();
-        Statement stmt = null;
-        JDBCCategoryDataset dataset = null;
-
-       
-        try {
-            /**
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from employee limit 6");
-            
-            int n = 0;
-            while (rs.next()) {
-                int numColumns = rs.getMetaData().getColumnCount();
-                n++;
-                for (int i = 1; i <= numColumns; i++) {
-                    System.out.print(" " + rs.getObject(i));
-                }
-
-                System.out.println("");
-            }
-
-            rs.close();
-            */
-
-            String sql = "SELECT countPointId, count(*) As Number_Of FROM vehicleType GROUP BY allMotorVehicles ";
-
-            dataset = new JDBCCategoryDataset(connection, sql);
-
-            System.out.println("dataset cols and rows : " + dataset.getColumnCount() + "  " + dataset.getRowCount());
-            
-        } catch (SQLException ex) {
-            System.err.println("SQLException: " + ex.getMessage());
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    System.err.println("SQLException: " + e.getMessage());
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.err.println("SQLException: " + e.getMessage());
-                }
-            }
-        }
-        JFreeChart chart = ChartFactory.createBarChart("Volume of Vehicle at Count Point: ",
-                "Vehicle Type", "Volume", dataset, PlotOrientation.VERTICAL, false, true, false);
-        chart.setBackgroundPaint(Color.white);
-        chart.getTitle().setPaint(Color.blue);
-
-        CategoryPlot p = chart.getCategoryPlot();
-        p.setRangeGridlinePaint(Color.blue);
-        BarRenderer renderer = (BarRenderer) p.getRenderer();
-        renderer.setDrawBarOutline(true);
-        renderer.setShadowVisible(true);
-        renderer.setItemMargin(-4);
-        renderer.setSeriesPaint(0, Color.blue);
-
-        frame = new ChartFrame("Vehicle Volume", chart);
-        frame.setVisible(true);
-        frame.setSize(400, 350);
-       
 
     }
 
@@ -131,12 +51,13 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         userEmailMain = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        updateTable = new javax.swing.JButton();
         fourthChartButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        Delete = new javax.swing.JButton();
+        userWindow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -167,13 +88,6 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         jTable1.setRowHeight(35);
         jScrollPane1.setViewportView(jTable1);
 
-        updateTable.setText("Update");
-        updateTable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateTableActionPerformed(evt);
-            }
-        });
-
         fourthChartButton.setText("FourthChart");
         fourthChartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,35 +108,53 @@ public class MainScreenAdmin extends javax.swing.JFrame {
             }
         });
 
+        Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
+
+        userWindow.setText("Users");
+        userWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userWindowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fourthChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fourthChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(userEmailMain)
                         .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(signOut)
-                        .addGap(22, 22, 22))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(updateTable, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,11 +171,14 @@ public class MainScreenAdmin extends javax.swing.JFrame {
                         .addComponent(userEmailMain)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(signOut)))
-                .addGap(1, 1, 1)
-                .addComponent(updateTable)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(userWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,48 +199,12 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_signOutActionPerformed
 
     private void fourthChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourthChartButtonActionPerformed
-        
+
 
     }//GEN-LAST:event_fourthChartButtonActionPerformed
 
-    private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
-        String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
-        Connection connection = null;
-
-        try {
-
-            Driver driverSQLite = new org.sqlite.JDBC();
-            DriverManager.registerDriver(driverSQLite);
-            System.out.println("SQLite Driver loaded up successfuly!");
-            Connection con = DriverManager.getConnection(urlSQLite);
-            System.out.println("Connected to the database!");
-
-            Statement st = con.createStatement();
-            String sql = "SELECT * FROM userActivity";
-            ResultSet resultSet2 = st.executeQuery(sql);
-
-            while (resultSet2.next()) {
-                String userEmail = resultSet2.getString("userEmail");
-
-                String loginTime = resultSet2.getString("loginTime");
-                String logoutTime = resultSet2.getString("logoutTime");
-
-                String DBdata[] = {userEmail, loginTime, logoutTime};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
-
-                tblModel.addRow(DBdata);
-
-            }
-
-            connection.close();
-
-        } catch (Exception ex) {
-            System.out.println("Error " + ex.getMessage());
-        }
-    }//GEN-LAST:event_updateTableActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        JOptionPane.showMessageDialog(this,"You will be automatically signed out!");
+        JOptionPane.showMessageDialog(this, "You will be automatically signed out!");
 
         Date date = new Date();
         long time = date.getTime();
@@ -315,8 +214,48 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void PieChartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PieChartActionPerformed
-        drawPie();
+
     }//GEN-LAST:event_PieChartActionPerformed
+
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        Connection connection = CustomerDatabase.getConnection();
+        DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+        int row = jTable1.getSelectedRow();
+        String cell1 = jTable1.getModel().getValueAt(row, 0).toString();
+        String cell = jTable1.getModel().getValueAt(row, 1).toString();
+        String sql = "DELETE FROM userActivity WHERE loginTime = '" + cell + "' AND userEmail = '" + cell1 + "'";
+        try {
+            // I will be checking to see if a row is selected
+            if (jTable1.getSelectedRowCount() == 1) {
+                // If one row is selected then delete the given row
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+                tblModel.removeRow(jTable1.getSelectedRow());
+                
+                JOptionPane.showMessageDialog(this, "Record deleted!");
+            } else if (jTable1.getRowCount() == 0) {
+                // If there are no rows present in the table then table is empty
+                JOptionPane.showMessageDialog(this, "The table is empty!");
+            } else {
+                // else there are multiple rows selected
+                JOptionPane.showMessageDialog(this, "Please select a single row! Multiple rows not accepted.");
+            }
+            
+            
+
+        } catch (Exception ex) {
+            System.out.println("Error - " + ex);
+        }
+        
+            
+
+
+    }//GEN-LAST:event_DeleteActionPerformed
+
+    private void userWindowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userWindowActionPerformed
+        editUsers editUsers = new editUsers();
+        editUsers.setVisible(true);
+    }//GEN-LAST:event_userWindowActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,8 +293,8 @@ public class MainScreenAdmin extends javax.swing.JFrame {
         });
 
     }
-    
-    public void showData(){
+
+    public void showData() {
         String urlSQLite = "jdbc:sqlite:CustomerDatabase.db";
         Connection connection = null;
 
@@ -392,6 +331,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Delete;
     private javax.swing.JButton fourthChartButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -402,7 +342,7 @@ public class MainScreenAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton signOut;
-    private javax.swing.JButton updateTable;
     private javax.swing.JLabel userEmailMain;
+    private javax.swing.JButton userWindow;
     // End of variables declaration//GEN-END:variables
 }
