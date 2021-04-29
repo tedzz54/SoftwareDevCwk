@@ -174,5 +174,92 @@ public class UserTable {
         
     }
     
+    public static ResultSet getSecurityOne(String securityOne,String userEmail ) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT * FROM User WHERE securityOne = '" + securityOne + "' AND userEmail = '" + userEmail + "'";
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+        
+    }
+    
+    public static ResultSet getSecurityTwo(String securityTwo,String userEmail ) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT * FROM User WHERE securityOne = '" + securityTwo + "' AND userEmail = '" + userEmail + "'";
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+        
+    }
+    
+    public static ResultSet getPassWithEmail(String userEmail) {
+        
+        Connection connection = CustomerDatabase.getConnection();
+        
+        String sql = "SELECT userPass FROM User WHERE userEmail = " + userEmail;
+        ResultSet result = null;
+        
+        try {
+            
+            Statement statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+            connection.close();
+            
+            
+                
+            
+            
+        } catch (Exception ex) {
+            
+            System.out.println("Error while reading from User table " + ex.getMessage());
+            
+        } finally {
+        
+            return result;
+        }
+        
+        
+    }
+    
     
 }
